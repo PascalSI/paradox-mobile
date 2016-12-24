@@ -1,6 +1,7 @@
 package eu.greitai.paradox.mobilesecurity;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -100,10 +101,18 @@ public class HomeActivity extends AppCompatActivity implements
     @Override
     public void onSecurityEventsFetched(List<SecurityEvent> events) {
         refreshLayout.setRefreshing(false);
+        List<SecurityEvent> filtered =  EventDisplayFilter.removeNoisyEvents(events);
         lvEvents.setAdapter(new EventDisplayAdapter(
                 HomeActivity.this,
                 R.layout.events_display_row,
-                EventDisplayFilter.removeNoisyEvents(events)));
+                filtered));
+        if (filtered.size() == 0) {
+            Snackbar
+                .make(findViewById(android.R.id.content),
+                        getString(R.string.no_events_founds),
+                        Snackbar.LENGTH_LONG)
+                .show();
+        }
     }
 
     private long getStartOfDay() {
