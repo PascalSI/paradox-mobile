@@ -6,16 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
-
 
 import eu.greitai.paradox.mobilesecurity.data.SecurityEvent;
 import eu.greitai.paradox.mobilesecurity.data.SecurityEventStore;
@@ -103,18 +100,10 @@ public class HomeActivity extends AppCompatActivity implements
     @Override
     public void onSecurityEventsFetched(List<SecurityEvent> events) {
         refreshLayout.setRefreshing(false);
-        List<String> mapped = new ArrayList<>();
-        for (SecurityEvent event: events) {
-            mapped.add(
-                event.getTimestamp() + " " +
-                event.getEventGroup() + " " +
-                event.getEvent()
-            );
-        }
-        lvEvents.setAdapter(new ArrayAdapter<>(
+        lvEvents.setAdapter(new EventDisplayAdapter(
                 HomeActivity.this,
-                android.R.layout.simple_list_item_1,
-                mapped));
+                R.layout.events_display_row,
+                EventDisplayFilter.removeNoisyEvents(events)));
     }
 
     private long getStartOfDay() {

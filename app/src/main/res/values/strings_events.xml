@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="event_group_0">Zone OK</string>
+    <string name="event_group_1">Zone opened</string>
+    <string name="event_group_2">Partition status</string>
+    <string name="event_group_2_1"></string>
+    <string name="event_group_2_2">Silent alarm</string>
+    <string name="event_group_2_3">Buzzer alarm</string>
+    <string name="event_group_2_4">Steady alarm</string>
+    <string name="event_group_2_5">Pulsed alarm</string>
+    <string name="event_group_2_6">Strobe</string>
+    <string name="event_group_2_7">Alarm stopped</string>
+    <string name="event_group_2_8">Squawk ON</string>
+    <string name="event_group_2_9">Squawk OFF</string>
+    <string name="event_group_2_10">Ground start</string>
+    <string name="event_group_2_11">Disarm partition</string>
+    <string name="event_group_2_12">Arm partition</string>
+    <string name="event_group_2_13">Entry delay started</string>
+    <string name="event_group_2_14">Exit delay started</string>
+    <string name="event_group_2_15">Pre-alarm delay</string>
+    <string name="event_group_2_16">Report confirmation</string>
+    <string name="event_group_3">Bell status</string>
+    <string name="event_group_3_0">Bell OFF</string>
+    <string name="event_group_3_1">Bell ON</string>
+    <string name="event_group_3_2">Bell squawk arm</string>
+    <string name="event_group_3_3">Bell squawk disarm</string>
+    <string name="event_group_29">Arm with user</string>
+    <string name="event_group_30">Special arming</string>
+    <string name="event_group_30_0">Auto-arming</string>
+    <string name="event_group_30_1">Late to close</string>
+    <string name="event_group_30_2">No movement arming</string>
+    <string name="event_group_30_3">Partial arming</string>
+    <string name="event_group_30_4">Quick arming</string>
+    <string name="event_group_30_5">Arming through WinLoad/BabyWare</string>
+    <string name="event_group_30_6">Arming with keyswitch</string>
+    <string name="event_group_31">Disarm with user</string>
+    <string name="event_group_32">Disarm after alarm with user</string>
+    <string name="event_group_33">Alarm canceled by user</string>
+    <string name="event_group_34">Special disarming</string>
+    <string name="event_group_35">Zone bypassed</string>
+    <string name="event_group_36">Zone in alarm</string>
+    <string name="event_group_37">Fire alarm</string>
+    <string name="event_group_38">Zone alarm restore</string>
+    <string name="event_group_39">Fire alarm restore</string>
+</resources>
