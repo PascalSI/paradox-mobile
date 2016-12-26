@@ -3,11 +3,9 @@ package eu.greitai.paradox.mobilesecurity;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,19 +18,18 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 
 import eu.greitai.paradox.mobilesecurity.data.SecurityEvent;
 import eu.greitai.paradox.mobilesecurity.data.SecurityEventStore;
 import eu.greitai.paradox.mobilesecurity.fetch.FetchSecurityEventsParams;
 import eu.greitai.paradox.mobilesecurity.fetch.FetchSecurityEventsTask;
-import eu.greitai.paradox.mobilesecurity.fetch.OnSecurityEventsFetched;
+import eu.greitai.paradox.mobilesecurity.fetch.OnSecurityEventsFetchedListener;
 import eu.greitai.paradox.mobilesecurity.helpers.DateUtils;
 
 public class HomeActivity extends AppCompatActivity implements
         SwipeRefreshLayout.OnRefreshListener,
         CompoundButton.OnCheckedChangeListener,
-        OnSecurityEventsFetched,
+        OnSecurityEventsFetchedListener,
         View.OnClickListener,
         OnDateSelectedListener {
 

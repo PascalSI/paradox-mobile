@@ -9,11 +9,11 @@ import eu.greitai.paradox.mobilesecurity.data.SecurityEventStore;
 public class FetchSecurityEventsTask extends
         AsyncTask<FetchSecurityEventsParams, Void, List<SecurityEvent>> {
 
-    private OnSecurityEventsFetched callback;
+    private OnSecurityEventsFetchedListener callback;
     private SecurityEventStore store;
 
     public FetchSecurityEventsTask(
-            OnSecurityEventsFetched callback,
+            OnSecurityEventsFetchedListener callback,
             SecurityEventStore store) {
         this.callback = callback;
         this.store = store;

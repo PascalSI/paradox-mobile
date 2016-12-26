@@ -4,6 +4,6 @@ import java.util.List;
 
 import eu.greitai.paradox.mobilesecurity.data.SecurityEvent;
 
-public interface OnSecurityEventsFetched {
+public interface OnSecurityEventsFetchedListener {
     void onSecurityEventsFetched(List<SecurityEvent> events);
 }
