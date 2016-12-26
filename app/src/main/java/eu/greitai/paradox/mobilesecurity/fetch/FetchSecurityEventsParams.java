@@ -2,19 +2,18 @@ package eu.greitai.paradox.mobilesecurity.fetch;
 
 public class FetchSecurityEventsParams {
 
-    private long fromTime;
-    private boolean onlyImportant;
+    private Long fromTime = null;
+    private Long toTime = null;
+    private boolean onlyImportant = true;
 
-    public FetchSecurityEventsParams(long fromTime, boolean onlyImportant) {
-        this.fromTime = fromTime;
-        this.onlyImportant = onlyImportant;
+    public FetchSecurityEventsParams() {
     }
 
-    public long getFromTime() {
+    public Long getFromTime() {
         return fromTime;
     }
 
-    public void setFromTime(long fromTime) {
+    public void setFromTime(Long fromTime) {
         this.fromTime = fromTime;
     }
 
@@ -24,5 +23,13 @@ public class FetchSecurityEventsParams {
 
     public void setOnlyImportant(boolean onlyImportant) {
         this.onlyImportant = onlyImportant;
+    }
+
+    public Long getToTime() {
+        return toTime;
+    }
+
+    public void setToTime(Long toTime) {
+        this.toTime = toTime;
     }
 }

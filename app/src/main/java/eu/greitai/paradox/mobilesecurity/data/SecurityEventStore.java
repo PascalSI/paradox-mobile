@@ -55,6 +55,7 @@ public class SecurityEventStore {
         } else {
             query.setLimit(500);
         }
+
         QueryResultPage<SecurityEvent> qr = new DynamoDBMapper(this.db)
                 .queryPage(
                 SecurityEvent.class,

@@ -22,7 +22,7 @@ public class FetchSecurityEventsTask extends
     @Override
     protected  List<SecurityEvent> doInBackground(FetchSecurityEventsParams... params) {
         FetchSecurityEventsParams param = params[0];
-        return store.getEvents(param.getFromTime(), null, param.isOnlyImportant());
+        return store.getEvents(param.getFromTime(), param.getToTime(), param.isOnlyImportant());
     }
 
     @Override

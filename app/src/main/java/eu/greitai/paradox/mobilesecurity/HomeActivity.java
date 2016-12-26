@@ -3,13 +3,20 @@ package eu.greitai.paradox.mobilesecurity;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.List;
@@ -20,11 +27,14 @@ import eu.greitai.paradox.mobilesecurity.data.SecurityEventStore;
 import eu.greitai.paradox.mobilesecurity.fetch.FetchSecurityEventsParams;
 import eu.greitai.paradox.mobilesecurity.fetch.FetchSecurityEventsTask;
 import eu.greitai.paradox.mobilesecurity.fetch.OnSecurityEventsFetched;
+import eu.greitai.paradox.mobilesecurity.helpers.DateUtils;
 
 public class HomeActivity extends AppCompatActivity implements
         SwipeRefreshLayout.OnRefreshListener,
         CompoundButton.OnCheckedChangeListener,
-        OnSecurityEventsFetched {
+        OnSecurityEventsFetched,
+        View.OnClickListener,
+        OnDateSelectedListener {
 
     private SecurityEventStore store;
 
@@ -33,6 +43,10 @@ public class HomeActivity extends AppCompatActivity implements
     private Switch swOnlyImportant;
 
     private ListView lvEvents;
+
+    private TextView etDate;
+    private ImageView ivDate;
+    private long selectedDate;
 
 
     @Override
@@ -52,6 +66,10 @@ public class HomeActivity extends AppCompatActivity implements
         swOnlyImportant.setChecked(true);
         swOnlyImportant.setOnCheckedChangeListener(this);
 
+        etDate = (EditText) findViewById(R.id.etDate);
+        ivDate = (ImageView) findViewById(R.id.ivDate);
+        etDate.setOnClickListener(this);
+        ivDate.setOnClickListener(this);
 
         // define these in gradle.properties:
         // AccessKey="XXXXX"
@@ -61,14 +79,30 @@ public class HomeActivity extends AppCompatActivity implements
                     BuildConfig.ACCESS_KEY,
                     BuildConfig.ACCESS_KEY_SECRET,
                     BuildConfig.REGION_ID);
-        this.onRefresh();
+
+        selectDate(DateUtils.getStarOfDayInUtc().getTimeInMillis());
     }
+
+    private void selectDate(long timeStamp) {
+        selectedDate = timeStamp;
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(timeStamp);
+        etDate.setText(DateFormat.format("yyyy-MM-dd", cal).toString());
+        onRefresh();
+    }
+
 
     @Override
     public void onRefresh() {
         refreshLayout.setRefreshing(true);
+        FetchSecurityEventsParams params =
+                new FetchSecurityEventsParams();
+        params.setFromTime(selectedDate);
+        params.setToTime(selectedDate + 24*60*60*1000);
+        params.setOnlyImportant(swOnlyImportant.isChecked());
         new FetchSecurityEventsTask(this, store)
-        .execute(new FetchSecurityEventsParams(getStartOfDay(), swOnlyImportant.isChecked()));
+        .execute(params);
     }
 
     @Override
@@ -115,12 +149,20 @@ public class HomeActivity extends AppCompatActivity implements
         }
     }
 
-    private long getStartOfDay() {
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        return cal.getTimeInMillis();
+
+    @Override
+    public void onClick(View v) {
+        SelectDateFragment selectDate = new SelectDateFragment();
+
+        Bundle arguments = new Bundle();
+        arguments.putLong("date", selectedDate);
+        selectDate.setArguments(arguments);
+
+        selectDate.show(getSupportFragmentManager(), "selectDate");
+    }
+
+    @Override
+    public void onDateSelected(long timeStamp) {
+        selectDate(timeStamp);
     }
 }
